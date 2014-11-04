@@ -10,6 +10,7 @@ import KnnStorage.KnnNodeList;
 import Util.PaintingUtil;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -495,13 +496,105 @@ public class DrawingPanel extends javax.swing.JPanel {
         this.testingdata = testingdata;
     }
     
-    
+    public void initializeCoordinator(Graphics g){
+        
+        int pointXOfStartingpoint;
+        int pointYOfStartingpoint;
+        
+        int pointXOfXCoordinator;
+        int pointYOfXCoordinator;
+        
+        int pointXOfYCoordinator;
+        int pointYOfYCoordinator;
+        
+        int arrowinXCoordinatorpoint1x;
+        int arrowinXCoordinatorpoint1y;
+        
+        int arrowinXCoordinatorpoint2x;
+        int arrowinXCoordinatorpoint2y;
+        
+        int arrowinYCoordinatorpoint1x;
+        int arrowinYCoordinatorpoint1y;
+        
+        int arrowinYCoordinatorpoint2x;
+        int arrowinYCoordinatorpoint2y;
+        
+        g.setColor(Color.black);
+        if(trainingdata!=null||testingdata!=null){
+            pointXOfStartingpoint = (int)((getx_smallest()-getx_smallest())*get_scaleX()+0.10*getWidth());
+            pointYOfStartingpoint = (int)((gety_smallest()-gety_smallest())*get_scaleY()+0.10*getHeight());
+        
+            pointXOfXCoordinator = (int)((getx_max()-getx_smallest())*get_scaleX()+0.30*getWidth());
+            pointYOfXCoordinator = (int)((gety_smallest()-gety_smallest())*get_scaleY()+0.10*getHeight());
+        
+            pointXOfYCoordinator = (int)((getx_smallest()-getx_smallest())*get_scaleX()+0.10*getWidth());
+            pointYOfYCoordinator = (int)((gety_max()-gety_smallest())*get_scaleY()+0.30*getHeight());
+            
+            
+            
+            arrowinXCoordinatorpoint1x = (int)((getx_max()-getx_smallest())*get_scaleX()+0.25*getWidth());
+            arrowinXCoordinatorpoint1y = (int)((gety_smallest()-gety_smallest())*get_scaleY()+0.15*getHeight());
+        
+            arrowinXCoordinatorpoint2x = (int)((getx_max()-getx_smallest())*get_scaleX()+0.25*getWidth());
+            arrowinXCoordinatorpoint2y = (int)((gety_smallest()-gety_smallest())*get_scaleY()+0.05*getHeight());
+        
+            arrowinYCoordinatorpoint1x = (int)((getx_smallest()-getx_smallest())*get_scaleX()+0.05*getWidth());
+            arrowinYCoordinatorpoint1y = (int)((gety_max()-gety_smallest())*get_scaleY()+0.25*getHeight());
+        
+            arrowinYCoordinatorpoint2x = (int)((getx_smallest()-getx_smallest())*get_scaleX()+0.15*getWidth());
+            arrowinYCoordinatorpoint2y = (int)((gety_max()-gety_smallest())*get_scaleY()+0.25*getHeight());
+            
+            
+        }
+        else{
+            pointXOfStartingpoint = (int)(0.10*getWidth());
+            pointYOfStartingpoint = (int)(0.10*getHeight());
+        
+            pointXOfXCoordinator = (int)(0.90*getWidth());
+            pointYOfXCoordinator = (int)(0.10*getHeight());
+        
+            pointXOfYCoordinator = (int)(0.10*getWidth());
+            pointYOfYCoordinator = (int)(0.90*getHeight());
+            
+            
+            
+            arrowinXCoordinatorpoint1x = (int)(0.85*getWidth());
+            arrowinXCoordinatorpoint1y = (int)(0.15*getHeight());
+        
+            arrowinXCoordinatorpoint2x = (int)(0.85*getWidth());
+            arrowinXCoordinatorpoint2y = (int)(0.05*getHeight());
+        
+            arrowinYCoordinatorpoint1x = (int)(0.05*getWidth());
+            arrowinYCoordinatorpoint1y = (int)(0.85*getHeight());
+        
+            arrowinYCoordinatorpoint2x = (int)(0.15*getWidth());
+            arrowinYCoordinatorpoint2y = (int)(0.85*getHeight());
+        }
+        
+        PaintingUtil.paint2DLine(g, pointXOfStartingpoint, pointYOfStartingpoint, pointXOfXCoordinator, pointYOfXCoordinator);
+        PaintingUtil.paint2DLine(g, pointXOfStartingpoint, pointYOfStartingpoint, pointXOfYCoordinator, pointYOfYCoordinator);
+        
+        
+        PaintingUtil.paint2DLine(g, arrowinXCoordinatorpoint1x, arrowinXCoordinatorpoint1y, pointXOfXCoordinator, pointYOfXCoordinator);
+        PaintingUtil.paint2DLine(g, arrowinXCoordinatorpoint2x, arrowinXCoordinatorpoint2y, pointXOfXCoordinator, pointYOfXCoordinator);
+        PaintingUtil.paint2DLine(g, arrowinYCoordinatorpoint1x, arrowinYCoordinatorpoint1y, pointXOfYCoordinator, pointYOfYCoordinator);
+        PaintingUtil.paint2DLine(g, arrowinYCoordinatorpoint2x, arrowinYCoordinatorpoint2y, pointXOfYCoordinator, pointYOfYCoordinator);
+        
+        
+//        int linex1 = (int)((getx_smallestintrainingdata()-getx_smallestintrainingdata())*get_scaleX()+0.20*getWidth());
+//        int liney1 = (int)((gety_smallestintrainingdata()-gety_smallestintrainingdata())*get_scaleY()+0.20*getHeight());
+//        int linex2 = (int)((getx_maxintrainingdata()-getx_smallestintrainingdata())*get_scaleX()+0.20*getWidth());
+//        int liney2 = (int)((gety_maxintrainingdata()-gety_smallestintrainingdata())*get_scaleY()+0.20*getHeight());
+        
+    }
     
     /**
      * Creates new form DrawingPanel
      */
     public DrawingPanel() {
         initComponents();
+        
+        repaint();
     }
 
     //每次调用repaint()函数时，调用paintComponent()函数
@@ -510,7 +603,9 @@ public class DrawingPanel extends javax.swing.JPanel {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
     
         System.out.println("invoke the function paintComponent()");
-        
+    
+        //initialize the coordinator in the drawingPanel1;
+        initializeCoordinator(g);
         
         
         //drawing the training data
